@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import { ThemeContext } from "./context/theme-provider";
+import classNames from "classnames";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const { theme, setTheme } = useContext(ThemeContext);
+	const themeClassNames = classNames("App", theme);
+
+	const changeTheme = () => {
+		if (theme === "light") {
+			setTheme("dark");
+		} else {
+			setTheme("light");
+		}
+	};
+
+	return (
+		<div className={themeClassNames}>
+			<h2>Your theme is</h2>
+			<h1>"{theme}"</h1>
+			<button onClick={changeTheme}>Change</button>
+		</div>
+	);
+};
 
 export default App;
